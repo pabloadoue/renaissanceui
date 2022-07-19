@@ -23,11 +23,11 @@ export function RenaissanceProvider(props: TRenaissanceProviderProps) {
 
     return <NativeBaseProvider theme={getTheme(colorMode)}>
         <SafeAreaProvider>
-            <Navigator>
+            <Navigator linking={props.linking}>
                 {props.children}
             </Navigator>
         </SafeAreaProvider>
-    </NativeBaseProvider>;
+    </NativeBaseProvider>
 }
 
 RenaissanceProvider.defaultProps = {

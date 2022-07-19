@@ -22,8 +22,14 @@ export default function App() {
     }
   });
 
-  return <RenaissanceProvider pallete={pallete} colorMode={colorMode} linking={Linking()}>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+  return <RenaissanceProvider
+    pallete={pallete}
+    colorMode={colorMode}
+    linking={Linking()}
+  >
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
       <Stack.Screen name="components">
         {(props) => <Components {...props} setColorMode={setColorMode} />}
       </Stack.Screen>

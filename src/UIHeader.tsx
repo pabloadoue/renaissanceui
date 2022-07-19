@@ -38,9 +38,10 @@ export function UIHeader(props: TUIHeaderProps) {
     return <View
         width={"100%"}
         bg={bg}
+        shadow={props.shadow ? 1 : -1}
     >
         <SafeArea safeArea={props.safeArea === true}>
-            <HStack height={10}>
+            <HStack height={12}>
                 <View flex={3} justifyContent="center" alignItems={"flex-start"}>
                     {left()}
                 </View>
