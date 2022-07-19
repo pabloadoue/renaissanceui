@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="88px" viewBox="0 0 128 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>branches</title>
+    <g id="branches" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" x="0" y="0" width="128" height="88"></rect>
+        <rect id="Rectangle" fill="#000000" x="18" y="8" width="31" height="31" rx="7"></rect>
+        <rect id="Rectangle" fill="#000000" x="49" y="49" width="31" height="31" rx="7"></rect>
+        <rect id="Rectangle" fill="#000000" x="79" y="8" width="31" height="31" rx="7"></rect>
+        <polygon id="Line-2" fill="#000000" fill-rule="nonzero" points="28.5895465 23.8775481 34.1224519 19.5895465 69.4104535 65.1224519 63.8775481 69.4104535"></polygon>
+        <polygon id="Line-2" fill="#000000" fill-rule="nonzero" points="98 21 98 28 30 28 30 21"></polygon>
+    </g>
+</svg>

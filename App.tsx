@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { useState, useEffect } from 'react';
+import { RenaissanceProvider, TRenaissanceProviderPallete } from './src';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import Linking from "./linking";
+
+const Stack = createNativeStackNavigator();
+
+import Components from "./routes/components";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [colorMode, setColorMode] = useState<"light" | "dark">("light");
+  const [pallete, setPallete] = useState<TRenaissanceProviderPallete>({
+    primary: {
+      light: '#c40000',
+      dark: '#c40000',
+    },
+    accent: {
+      light: "rgb(255,204,0)",
+      dark: "rgb(255,204,0)"
+    }
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return <RenaissanceProvider pallete={pallete} colorMode={colorMode} linking={Linking()}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="components">
+        {(props) => <Components {...props} setColorMode={setColorMode} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  </RenaissanceProvider>
+}
