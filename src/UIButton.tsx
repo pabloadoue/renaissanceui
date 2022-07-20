@@ -6,7 +6,7 @@ export function UIButton(props: TUIButtonProps) {
         if (typeof props.label === "string") {
             return props.label;
         } else if (props.icon) {
-            return <UIIcon name={props.icon} size={"xl"} />
+            return <UIIcon name={props.icon} size={"md"} />
         }
     };
 

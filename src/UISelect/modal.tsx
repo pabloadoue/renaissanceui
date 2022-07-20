@@ -31,7 +31,7 @@ export default function UISelectModal(props: Props) {
                 setTopOffset(e.nativeEvent.contentOffset.y);
             }}
             contentContainerStyle={{
-                marginTop: 60,
+                marginTop: 80,
                 marginHorizontal: 20,
                 marginBottom: 60,
                 borderRadius: 8,
@@ -51,7 +51,6 @@ export default function UISelectModal(props: Props) {
                 shadow={topOffset > 0}
                 left={{
                     label: "Regresar",
-                    leftIcon: "chevron-left",
                     press: () => {
                         props.close();
                     }

@@ -8,6 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "build": "tsc",
     "icons": "ts-node ./scripts/generate-icons.ts"
   },
   "dependencies": {

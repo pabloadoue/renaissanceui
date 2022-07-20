@@ -53,7 +53,7 @@ export function UIHeader(props: TUIHeaderProps) {
         borderTopRadius={props.borderRadius ? 8 : 0}
     >
         <SafeArea safeArea={props.safeArea === true}>
-            <HStack paddingX={2} style={{ height: 50 }}>
+            <HStack paddingX={2} style={{ height: 60 }}>
                 <View flex={3} justifyContent="center" alignItems={"flex-start"}>
                     {left()}
                 </View>

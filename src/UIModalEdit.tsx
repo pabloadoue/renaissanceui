@@ -14,7 +14,7 @@ export function UIModalEdit(props: TUIModalEditProps) {
         <View flex={1} borderRadius={8}>
             <KeyboardAwareScrollView
                 contentContainerStyle={{
-                    paddingTop: 40,
+                    paddingTop: 60,
                     paddingBottom: 40
                 }}
                 extraHeight={200}
