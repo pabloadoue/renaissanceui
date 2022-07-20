@@ -3,7 +3,7 @@ import { Text, View } from "native-base";
 import Base from "./base";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { FormHandler, TFieldsType, UITable, UITextInput, UICurrencyInput } from "../../src";
+import { FormHandler, TFieldsType, UITable, UITextInput, UICurrencyInput, UISelect, UIInputSwitch } from "../../src";
 
 export default function Components(props: any) {
     const [fields, setFields] = useState<TFieldsType>({
@@ -74,6 +74,53 @@ export default function Components(props: any) {
                 { label: "Option 3", value: "Option 3" },
                 { label: "Option 4", value: "Option 4" }
             ]
+        },
+        Select2: {
+            name: "Select2",
+            value: null,
+            label: "Select Disabled",
+            disabled: true,
+            options: [
+                { label: "Option 1", value: "Option 1" },
+                { label: "Option 2", value: "Option 2" },
+                { label: "Option 3", value: "Option 3" },
+                { label: "Option 4", value: "Option 4" }
+            ]
+        },
+        Select3: {
+            name: "Select3",
+            value: null,
+            label: "Select Loading",
+            loading: true,
+            options: [
+                { label: "Option 1", value: "Option 1" },
+                { label: "Option 2", value: "Option 2" },
+                { label: "Option 3", value: "Option 3" },
+                { label: "Option 4", value: "Option 4" }
+            ]
+        },
+        Select4: {
+            name: "Select4",
+            value: null,
+            label: "Select Error",
+            error: "Error message to be shown on the text field",
+            options: [
+                { label: "Option 1", value: "Option 1" },
+                { label: "Option 2", value: "Option 2" },
+                { label: "Option 3", value: "Option 3" },
+                { label: "Option 4", value: "Option 4" }
+            ]
+        },
+        Switch1: {
+            name: "Switch1",
+            value: false,
+            label: "Switch Input"
+        },
+        Switch2: {
+            name: "Switch2",
+            value: false,
+            disabled: true,
+            label: "Switch Input Disabled"
         }
     });
 
@@ -102,6 +149,16 @@ export default function Components(props: any) {
                 <UITable label="Currency Input">
                     <UICurrencyInput {...fields.Currency1} />
                     <UICurrencyInput {...fields.Currency2} />
+                </UITable>
+                <UITable label="Select Input">
+                    <UISelect {...fields.Select1} />
+                    <UISelect {...fields.Select2} />
+                    <UISelect {...fields.Select3} />
+                    <UISelect {...fields.Select4} />
+                </UITable>
+                <UITable label="Switch Input">
+                    <UIInputSwitch {...fields.Switch1} />
+                    <UIInputSwitch {...fields.Switch2} />
                 </UITable>
             </FormHandler>
         </View>

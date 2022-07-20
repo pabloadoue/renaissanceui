@@ -1,11 +1,29 @@
-import { View, Input, Text, HStack } from "native-base";
-import { useState, useEffect } from "react";
+import { View, Input, Text, HStack, useTheme } from "native-base";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import numeral from "numeral";
 
-export function UICurrencyInput(props: TUICurrencyInputProps) {
+const CurrencyInput = (props: TUICurrencyInputProps, ref: any) => {
+    const { colors } = useTheme();
+    const inputRef = useRef<any>(null);
+    const [focused, setFocused] = useState(false);
     const [borderBottomWidth, setBorderBottomWidth] = useState(0.5);
     const [borderBottomColor, setBorderBottomColor] = useState("gray4");
+    const [labelColor, setLabelColor] = useState(colors.gray2);
     const [value, setValue] = useState("");
+
+    useImperativeHandle(ref, () => {
+        return {
+            focus: () => {
+                inputRef.current.focus();
+            },
+            blur: () => {
+                inputRef.current.blur();
+            },
+            name: props.name,
+            disabled: props.disabled,
+            value: props.value
+        }
+    });
 
     useEffect(() => {
         let a = numeral(props.value).value();
@@ -41,17 +59,25 @@ export function UICurrencyInput(props: TUICurrencyInputProps) {
     }, [props.value]);
 
     useEffect(() => {
-        if (props.error) {
+        if (props.borderBottom || props.error) {
             setBorderBottomWidth(0.5);
-            setBorderBottomColor("red");
-        } else if (props.borderBottom) {
-            setBorderBottomWidth(0.5);
-            setBorderBottomColor("gray4");
         } else {
             setBorderBottomWidth(0);
-            setBorderBottomColor("gray4");
         }
     }, [props.borderBottom, props.error]);
+
+    useEffect(() => {
+        if (props.error) {
+            setLabelColor(colors.red);
+            setBorderBottomColor("red");
+        } else if (focused) {
+            setLabelColor(colors.blue["500"]);
+            setBorderBottomColor("blue.500");
+        } else {
+            setLabelColor(colors.gray2);
+            setBorderBottomColor("gray4");
+        }
+    }, [props.error, focused]);
 
     const error = () => {
         if (typeof props.error === "string") {
@@ -94,12 +120,13 @@ export function UICurrencyInput(props: TUICurrencyInputProps) {
         <View width={"100%"} borderBottomWidth={borderBottomWidth} borderBottomColor={borderBottomColor} paddingY={3}>
             <HStack width="100%" space={2} paddingY={1}>
                 <View paddingLeft={4}>
-                    <Text fontSize={18} color="gray">{props.label}</Text>
+                    <Text fontSize={18} color={labelColor}>{props.label}</Text>
                 </View>
                 <View flex={1}>
                     <Input
                         variant={"unstyled"}
                         size={"xl"}
+                        ref={inputRef}
                         textAlign={"right"}
                         autoCapitalize={"none"}
                         autoCorrect={false}
@@ -110,6 +137,14 @@ export function UICurrencyInput(props: TUICurrencyInputProps) {
                         padding={0}
                         paddingRight={4}
                         keyboardType={"number-pad"}
+                        onFocus={() => setFocused(true)}
+                        onBlur={() => setFocused(false)}
+                        returnKeyType={props.returnKeyType}
+                        onSubmitEditing={() => {
+                            if (typeof props.next === "function") {
+                                props.next(props.name);
+                            }
+                        }}
                     />
                 </View>
             </HStack>
@@ -138,11 +173,13 @@ const countDecimals = (input: number) => {
     return value.split(".")[1].length || 0;
 }
 
-UICurrencyInput.defaultProps = {
+/*UICurrencyInput.defaultProps = {
     disabled: false,
     error: false,
     value: 0
-}
+}*/
+
+export const UICurrencyInput = forwardRef(CurrencyInput)
 
 export type TUICurrencyInputProps = {
     name: string;
@@ -155,4 +192,6 @@ export type TUICurrencyInputProps = {
     currency?: "USD" | "MXN" | "EUR" | "GBP" | "JPY" | "AUD" | "NZD" | "CAD" | "COP";
     change?: (value: { name: string, value: string | number }) => void;
     submit?: () => void;
+    next?: (name?: string) => void;
+    returnKeyType?: "next" | "done" | "go" | "search" | "send";
 }

@@ -1,9 +1,10 @@
 import { View, Input, Text, useTheme } from "native-base";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import { Animated } from "react-native";
-import { UIIcon } from "./index";
+import { UIIcon } from "./UIIcon";
 
-export function UITextInput(props: TUITextInputProps) {
+const TextInput = (props: TUITextInputProps, ref: any) => {
+    const inputRef = useRef<any>(null);
     const { colors } = useTheme();
     const [focused, setFocused] = useState(false);
     const [borderBottomWidth, setBorderBottomWidth] = useState(0.5);
@@ -13,22 +14,26 @@ export function UITextInput(props: TUITextInputProps) {
     const labelTop = useRef(new Animated.Value(22)).current;
 
     useEffect(() => {
-        /*if (props.error) {
-            setBorderBottomWidth(0.5);
-            setBorderBottomColor("red");
-        } else if (props.borderBottom) {
-            setBorderBottomWidth(0.5);
-            setBorderBottomColor("gray4");
-        } else {
-            setBorderBottomWidth(0);
-            setBorderBottomColor("gray4");
-        }*/
         if (props.borderBottom || props.error) {
             setBorderBottomWidth(0.5);
         } else {
             setBorderBottomWidth(0);
         }
     }, [props.borderBottom, props.error]);
+
+    useImperativeHandle(ref, () => {
+        return {
+            focus: () => {
+                inputRef.current.focus();
+            },
+            blur: () => {
+                inputRef.current.blur();
+            },
+            name: props.name,
+            disabled: props.disabled,
+            value: props.value
+        }
+    });
 
     useEffect(() => {
         if (focused || props.value.length > 0) {
@@ -124,9 +129,9 @@ export function UITextInput(props: TUITextInputProps) {
             {label()}
             <Input
                 variant={"unstyled"}
+                ref={inputRef}
                 size={"xl"}
                 autoCapitalize={"none"}
-                autoCorrect={false}
                 type={props.type === "password" ? "password" : "text"}
                 value={`${props.value}`}
                 isDisabled={props.disabled}
@@ -146,11 +151,19 @@ export function UITextInput(props: TUITextInputProps) {
                 }
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
+                returnKeyType={props.returnKeyType}
+                onSubmitEditing={() => {
+                    if (typeof props.next === "function") {
+                        props.next(props.name);
+                    }
+                }}
             />
         </View>
         {error()}
     </View>
 }
+
+export const UITextInput = forwardRef(TextInput);
 
 const checkValid = (type: "email" | "password" | "number" | "phone" | "text" | "search" | "decimal" | "url" | "uri" | undefined, input: string) => {
     if (type === "email") {
@@ -209,4 +222,6 @@ export type TUITextInputProps = {
     borderBottom?: boolean;
     change?: (value: { name: string, value: string }) => void;
     submit?: () => void;
+    next?: (name?: string) => void;
+    returnKeyType?: "next" | "done" | "go" | "search" | "send";
 }

@@ -24,7 +24,7 @@ const handler = {
                     sizes: {
                         lg: {
                             px: 3,
-                            py: 3
+                            py: 1.5
                         },
                         md: {
                             px: 3,
@@ -54,6 +54,9 @@ const handler = {
                 },
                 "blue": {
                     ...handler.colorMixin(colors.blue)
+                },
+                "green": {
+                    ...handler.colorMixin(colors.green)
                 }
             }
         });

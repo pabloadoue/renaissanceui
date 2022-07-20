@@ -16,8 +16,11 @@ export default function Linking() {
                         Home: {
                             path: "home"
                         },
-                        Pallete: {
-                            path: "pallete"
+                        Color: {
+                            path: "color"
+                        },
+                        Buttons: {
+                            path: "buttons"
                         },
                         Inputs: {
                             path: "inputs"

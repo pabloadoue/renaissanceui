@@ -13,6 +13,9 @@ export function UIButton(props: TUIButtonProps) {
     return <Button
         variant={props.variant}
         isLoading={props.loading}
+        isDisabled={props.disabled}
+        colorScheme={props.color}
+        size={props.size}
         onPress={() => {
             if (typeof props.onPress === "function") {
                 props.onPress();
@@ -24,13 +27,19 @@ export function UIButton(props: TUIButtonProps) {
 }
 
 UIButton.defaultProps = {
-    variant: "ghost"
+    variant: "ghost",
+    color: "primary",
+    disabled: false,
+    size: "lg"
 }
 
 export type TUIButtonProps = {
     label?: string;
+    size: "sm" | "md" | "lg";
     icon?: TUIIconName;
     loading?: boolean;
+    disabled?: boolean;
     onPress?: () => void;
+    color?: string;
     variant?: "solid" | "subtle" | "link" | "outline" | "ghost";
 }

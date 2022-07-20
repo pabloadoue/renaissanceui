@@ -2,7 +2,8 @@ import React, {
     ReactChild,
     useImperativeHandle,
     forwardRef,
-    useState
+    useState,
+    useRef
 } from 'react';
 
 import uuid from 'react-native-uuid';
@@ -19,10 +20,13 @@ import validator from "./Validator";
 
 export const Handler = (props: TFormHandlerProps, ref: any) => {
     let { fields } = props;
+    const fieldsRef: { [key: string]: any } = {};
+
+    Object.keys(fields).forEach((key: string) => {
+        fieldsRef[key] = useRef(null);
+    });
 
     const [id, setId] = useState(uuid.v4());
-
-    //const [hydrated, setHydrated] = useState(uuid.v4());
 
     const change = (e: { name: string, value: any, error: any }) => {
         let result = ChangeHandler(e, fields);
@@ -77,6 +81,35 @@ export const Handler = (props: TFormHandlerProps, ref: any) => {
         submit: submit
     }));
 
+    function next(name: string) {
+        if (typeof fieldsRef[name] !== "undefined") {
+            let nextRef: any = null;
+
+            const refMap = Object.keys(fieldsRef);
+            refMap.map((key, index) => {
+                if (key === name) {
+                    nextRef = fieldsRef[refMap[index + 1]];
+                } else if (nextRef !== null && nextRef.current) {
+                    if (key === nextRef.current.name) {
+                        if (nextRef.current.disabled) {
+                            nextRef = fieldsRef[refMap[index + 1]];
+                        }
+                    }
+                }
+            });
+
+            if (nextRef !== null
+                && typeof nextRef !== "undefined"
+                && nextRef.current !== null
+                && typeof nextRef.current !== "undefined"
+                && typeof nextRef.current.focus === "function") {
+                nextRef.current.focus();
+            } else {
+                submit();
+            }
+        }
+    }
+
     const content = (children: [], index?: number): any => {
         if (typeof children !== "undefined" && children !== null) {
             if (typeof children.map === "function") {
@@ -86,6 +119,29 @@ export const Handler = (props: TFormHandlerProps, ref: any) => {
             } else {
                 const child = children;
                 if (React.isValidElement(child)) {
+                    let ref = null;
+                    let returnKeyType = "done";
+                    //@ts-expect-error
+                    if (typeof child.props.name === "string") {
+                        //@ts-expect-error
+                        if (typeof fieldsRef[child.props.name] !== "undefined") {
+                            //@ts-expect-error
+                            ref = fieldsRef[child.props.name];
+                            const keysMap = Object.keys(fields);
+                            keysMap.map((key, index) => {
+                                const count = index + 1;
+                                //@ts-expect-error
+                                if (key === child.props.name) {
+                                    if (count < keysMap.length) {
+                                        returnKeyType = "next";
+                                    } else if (count === keysMap.length) {
+                                        returnKeyType = "send";
+                                    }
+                                }
+                            })
+                        }
+                    }
+
                     let children = null;
                     if (typeof props.children !== "undefined") {
                         //@ts-expect-error
@@ -105,6 +161,9 @@ export const Handler = (props: TFormHandlerProps, ref: any) => {
                             //@ts-expect-error
                             children: children,
                             change: change,
+                            ref: ref,
+                            next: next,
+                            returnKeyType: returnKeyType,
                             fields: fields,
                             disabled: true,
                             key: index
@@ -114,6 +173,9 @@ export const Handler = (props: TFormHandlerProps, ref: any) => {
                             //@ts-expect-error
                             children: children,
                             change: change,
+                            ref: ref,
+                            next: next,
+                            returnKeyType: returnKeyType,
                             fields: fields,
                             key: index
                         });

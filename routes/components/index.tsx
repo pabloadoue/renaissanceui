@@ -6,6 +6,9 @@ const Drawer = createDrawerNavigator();
 
 import Home from "./home";
 import Inputs from "./inputs";
+import Buttons from "./buttons";
+import Color from "./color";
+import Modals from "./modals";
 
 export default function Components(props: any) {
     const { setColorMode } = props;
@@ -25,8 +28,17 @@ export default function Components(props: any) {
         <Drawer.Screen name="Home">
             {(props) => <Home {...props} setColorMode={setColorMode} />}
         </Drawer.Screen>
+        <Drawer.Screen name="Color">
+            {(props) => <Color {...props} setColorMode={setColorMode} />}
+        </Drawer.Screen>
         <Drawer.Screen name="Inputs">
             {(props) => <Inputs {...props} setColorMode={setColorMode} />}
+        </Drawer.Screen>
+        <Drawer.Screen name="Buttons">
+            {(props) => <Buttons {...props} setColorMode={setColorMode} />}
+        </Drawer.Screen>
+        <Drawer.Screen name="Modals">
+            {(props) => <Modals {...props} setColorMode={setColorMode} />}
         </Drawer.Screen>
     </Drawer.Navigator>
 };

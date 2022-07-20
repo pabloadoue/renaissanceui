@@ -3,6 +3,10 @@ import { UIButton, TUIButtonProps } from "./UIButton";
 import { UICurrencyInput, TUICurrencyInputProps } from "./UICurrencyInput";
 import { UIHeader, TUIHeaderProps } from './UIHeader';
 import { UIIcon, TUIIconProps, TUIIconName } from './UIIcon';
+import { UIInputSwitch, TUIInputSwitchProps } from "./UIInputSwitch";
+import { UIModal, TUIModalProps } from "./UIModal";
+import { UIModalEdit, TUIModalEditProps } from "./UIModalEdit";
+import { UISelect, TUISelectProps, TUISelectOption } from "./UISelect";
 import { UITable, TUITableProps } from "./UITable";
 import { UITextInput, TUITextInputProps } from "./UITextInput";
 
@@ -20,6 +24,10 @@ export {
     UICurrencyInput,
     UIHeader,
     UIIcon,
+    UIInputSwitch,
+    UIModal,
+    UIModalEdit,
+    UISelect,
     UITable,
     UITextInput,
     FormHandler,
@@ -32,6 +40,11 @@ export type {
     TUIHeaderProps,
     TUIIconProps,
     TUIIconName,
+    TUIInputSwitchProps,
+    TUIModalProps,
+    TUIModalEditProps,
+    TUISelectProps,
+    TUISelectOption,
     TUITableProps,
     TUITextInputProps,
     TFieldsType,

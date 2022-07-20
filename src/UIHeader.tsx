@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, HStack, Text, Button, useColorMode, } from 'native-base';
+import { View, HStack, Text, Button, useColorMode, useColorModeValue } from 'native-base';
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { TUIIconName } from './UIIcon';
@@ -10,16 +10,14 @@ export function UIHeader(props: TUIHeaderProps) {
     const { colorMode } = useColorMode();
 
     useEffect(() => {
-        if (props.transparent === true) {
-            setBg("transparent");
-        } else if (typeof props.bg !== "undefined") {
+        if (typeof props.bg !== "undefined") {
             if (colorMode === "light") {
                 setBg(props.bg.light);
             } else {
                 setBg(props.bg.dark);
             }
         }
-    }, [colorMode, props.transparent]);
+    }, [colorMode, props.bg]);
 
     const left = () => {
         if (!props.saving && typeof props.left !== "undefined") {
@@ -31,17 +29,18 @@ export function UIHeader(props: TUIHeaderProps) {
     const right = () => {
         if (typeof props.right !== "undefined") {
             const { label, icon, press } = props.right;
-            return <UIButton icon={icon} label={label} onPress={press} />
+            return <UIButton icon={icon} label={label} onPress={press} loading={props.saving} />
         }
     };
 
     return <View
         width={"100%"}
-        bg={bg}
+        bg={props.transparent ? "transparent" : bg}
         shadow={props.shadow ? 1 : -1}
+        borderTopRadius={props.borderRadius ? 8 : 0}
     >
         <SafeArea safeArea={props.safeArea === true}>
-            <HStack height={12}>
+            <HStack paddingX={2} style={{ height: 50 }}>
                 <View flex={3} justifyContent="center" alignItems={"flex-start"}>
                     {left()}
                 </View>
@@ -74,7 +73,9 @@ function SafeArea(props: {
 }
 
 UIHeader.defaultProps = {
-    safeArea: true
+    safeArea: true,
+    borderRadius: false,
+    transparent: false
 };
 
 export type TUIHeaderProps = {
@@ -87,6 +88,7 @@ export type TUIHeaderProps = {
     },
     shadow?: boolean;
     safeArea?: boolean;
+    borderRadius?: boolean;
     left?: {
         label?: string;
         icon?: TUIIconName;
