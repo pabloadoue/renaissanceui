@@ -22,7 +22,9 @@ fs.mkdirSync(dest);
 
 fs.copySync(src, dest);
 
-packageJson.main = './index.js';
+packageJson.main = './index';
+packageJson.module = './index';
+packageJson.name = 'renaissanceui';
 fs.writeFileSync(path.resolve(__dirname, '../dist/package.json'), JSON.stringify(packageJson, null, 2));
 fs.writeFileSync(path.resolve(__dirname, '../dist/package-lock.json'), JSON.stringify(packageLockJson, null, 2));
 

@@ -10,7 +10,9 @@
     "eject": "expo eject",
     "build": "chmod -R u+rx scripts && tsc",
     "postbuild": "scripty",
-    "publish": "scripty",
+    "npm-publish": "scripty",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
     "icons": "ts-node ./scripts/generate-icons.ts"
   },
   "dependencies": {
