@@ -1,13 +1,9 @@
 import path from "path";
 import fs from "fs";
 import convert from "xml-js";
-//@ts-expect-error
 import setval from 'setval';
-//@ts-expect-error
 import deepIterator from 'deep-iterator';
-//@ts-expect-error
 import capitalize from "capitalize";
-//@ts-expect-error
 import replaceall from "replaceall";
 
 const dir = path.resolve(__dirname, "../src/UIIcon/raw");

@@ -8,7 +8,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "build": "tsc",
+    "build": "chmod -R u+rx scripts && tsc",
+    "postbuild": "scripty",
+    "publish": "scripty",
     "icons": "ts-node ./scripts/generate-icons.ts"
   },
   "dependencies": {
@@ -47,7 +49,9 @@
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.66.13",
     "@types/validator": "^13.7.4",
+    "fs-extra": "^10.1.0",
+    "scripty": "^2.1.0",
     "typescript": "~4.3.5"
   },
-  "private": true
+  "private": false
 }

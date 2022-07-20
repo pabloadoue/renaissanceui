@@ -12,6 +12,8 @@
     "babel.config.js",
     "metro.config.js",
     "jest.config.js",
-    "lib"
+    "lib",
+    "scripts",
+    "dist"
   ]
 }
