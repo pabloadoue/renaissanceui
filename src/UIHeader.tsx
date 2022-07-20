@@ -21,15 +21,28 @@ export function UIHeader(props: TUIHeaderProps) {
 
     const left = () => {
         if (!props.saving && typeof props.left !== "undefined") {
-            const { label, icon, press } = props.left;
-            return <UIButton icon={icon} label={label} onPress={press} />
+            const { label, icon, press, leftIcon, rightIcon } = props.left;
+            return <UIButton
+                icon={icon}
+                label={label}
+                leftIcon={leftIcon}
+                rightIcon={rightIcon}
+                onPress={press}
+            />
         }
     }
 
     const right = () => {
         if (typeof props.right !== "undefined") {
-            const { label, icon, press } = props.right;
-            return <UIButton icon={icon} label={label} onPress={press} loading={props.saving} />
+            const { label, icon, press, leftIcon, rightIcon } = props.right;
+            return <UIButton
+                icon={icon}
+                label={label}
+                onPress={press}
+                leftIcon={leftIcon}
+                rightIcon={rightIcon}
+                loading={props.saving}
+            />
         }
     };
 
@@ -92,11 +105,15 @@ export type TUIHeaderProps = {
     left?: {
         label?: string;
         icon?: TUIIconName;
+        leftIcon?: TUIIconName;
+        rightIcon?: TUIIconName;
         press?: () => void;
     },
     right?: {
         label?: string;
         icon?: TUIIconName;
+        leftIcon?: TUIIconName;
+        rightIcon?: TUIIconName;
         press?: () => void;
     }
 }

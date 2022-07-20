@@ -51,6 +51,7 @@ export default function UISelectModal(props: Props) {
                 shadow={topOffset > 0}
                 left={{
                     label: "Regresar",
+                    leftIcon: "chevron-left",
                     press: () => {
                         props.close();
                     }

@@ -16,6 +16,8 @@ export function UIButton(props: TUIButtonProps) {
         isDisabled={props.disabled}
         colorScheme={props.color}
         size={props.size}
+        leftIcon={props.leftIcon && <UIIcon name={props.leftIcon} size={"sm"} />}
+        rightIcon={props.rightIcon && <UIIcon name={props.rightIcon} size={"sm"} />}
         onPress={() => {
             if (typeof props.onPress === "function") {
                 props.onPress();
@@ -37,6 +39,8 @@ export type TUIButtonProps = {
     label?: string;
     size: "sm" | "md" | "lg";
     icon?: TUIIconName;
+    leftIcon?: TUIIconName;
+    rightIcon?: TUIIconName;
     loading?: boolean;
     disabled?: boolean;
     onPress?: () => void;

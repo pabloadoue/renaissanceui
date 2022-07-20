@@ -14,13 +14,30 @@ const dir = path.resolve(__dirname, "../src/UIIcon/raw");
 const outDir = path.resolve(__dirname, "../src/UIIcon");
 
 const icons = fs.readdirSync(dir);
-const iconMap: { [key: string]: string } = {};
+const iconMap: {
+    [key: string]: {
+        height: string;
+        width: string;
+        viewBox: string;
+        body: string;
+    }
+} = {};
 
 icons.forEach(icon => {
     const iconName = icon.split(".")[0];
     const iconPath = path.resolve(dir, icon);
     const svgString = fs.readFileSync(iconPath, "utf8");
     const svgObject = convert.xml2js(svgString, { compact: false })["elements"][0];
+
+    const height = svgObject["attributes"]["height"];
+    const width = svgObject["attributes"]["width"];
+    const viewBox = svgObject["attributes"]["viewBox"];
+
+    console.log({
+        height: height,
+        width: width,
+        viewBox: viewBox
+    })
 
     delete svgObject["elements"][0];
     const iterator = deepIterator(svgObject);
@@ -49,7 +66,12 @@ icons.forEach(icon => {
 
     let svgOutput = convert.js2xml(svgObject, { compact: false });
     const name = iconName;
-    iconMap[name] = svgOutput;
+    iconMap[name] = {
+        height: height,
+        width: width,
+        viewBox: viewBox,
+        body: svgOutput
+    }
 });
 
 //Fetch all existing files on the Icon Directory
@@ -73,8 +95,8 @@ const iconNames: string[] = [];
 
 Object.keys(iconMap).forEach(key => {
     const name = key as keyof typeof iconMap;
-    let value = iconMap[name];
-    value = replaceall('fill="#000000"', 'fill={fillColor}', value);
+    let { height, width, viewBox, body } = iconMap[name];
+    body = replaceall('fill="#000000"', 'fill={fillColor}', body);
 
     let iconNameArray: string[] = [];
     key.split("-").map((name) => {
@@ -90,7 +112,6 @@ Object.keys(iconMap).forEach(key => {
     import {Path, G, Rect, Polygon} from "react-native-svg";
     //@ts-expect-error
     import find from "find-value";
-    //@ts-expect-error
     import validator from "validator";
 
     export default function ${iconName}Icon(props: any) {
@@ -106,8 +127,8 @@ Object.keys(iconMap).forEach(key => {
           }
       }
   
-      return <Icon viewBox="0 0 128 88" {...props}>
-          ${value}
+      return <Icon viewBox="${viewBox}" {...props}>
+          ${body}
       </Icon>
   }`;
     imports += `import ${iconName}Icon from "./${iconName}Icon";\n`;

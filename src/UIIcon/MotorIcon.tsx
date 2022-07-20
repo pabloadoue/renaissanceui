@@ -5,7 +5,6 @@
     import {Path, G, Rect, Polygon} from "react-native-svg";
     //@ts-expect-error
     import find from "find-value";
-    //@ts-expect-error
     import validator from "validator";
 
     export default function MotorIcon(props: any) {

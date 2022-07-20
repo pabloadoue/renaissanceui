@@ -121,7 +121,7 @@ const Select = (props: TUISelectProps, ref: any) => {
                     <Text fontSize={18} color="gray" numberOfLines={1}>{value()}</Text>
                 </View>
                 <View paddingRight={2} justifyContent="center">
-                    <UIIcon name="chevron-right" size="lg" color="gray" />
+                    <UIIcon name="chevron-right" size="sm" color="gray" />
                 </View>
             </HStack>
         }
