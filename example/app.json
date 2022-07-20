@@ -1,0 +1,23 @@
+{
+  "name": "renaissanceui-example",
+  "displayName": "Renaissanceui Example",
+  "expo": {
+    "name": "renaissanceui-example",
+    "slug": "renaissanceui-example",
+    "description": "Example app for renaissanceui",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "jsEngine": "hermes",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
