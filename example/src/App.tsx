@@ -1,31 +1,21 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'renaissanceui';
+import { Text } from 'react-native';
+import { RenaissanceProvider, TRenaissanceProviderPallete, UIButton } from 'renaissanceui';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
-  return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
-  );
+  const [colorMode, setColorMode] = useState<"light" | "dark">("light");
+  const [pallete, setPallete] = useState<TRenaissanceProviderPallete>({
+    primary: {
+      light: '#c40000',
+      dark: '#c40000',
+    },
+    accent: {
+      light: "rgb(255,204,0)",
+      dark: "rgb(255,204,0)"
+    }
+  });
+  return <RenaissanceProvider colorMode={colorMode} pallete={pallete}>
+    <UIButton label="Hello World" />
+  </RenaissanceProvider>
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});

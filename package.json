@@ -1,6 +1,6 @@
 {
   "name": "renaissanceui",
-  "version": "0.1.0",
+  "version": "1.0.2",
   "description": "test",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -28,7 +28,8 @@
     "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn && yarn example pods"
+    "bootstrap": "yarn example && yarn",
+    "icons": "node ./scripts/generate-icons"
   },
   "keywords": [
     "react-native",
@@ -52,8 +53,10 @@
     "@react-native-community/eslint-config": "^3.0.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
+    "@types/numeral": "^2.0.2",
     "@types/react": "~17.0.21",
     "@types/react-native": "0.68.0",
+    "@types/validator": "^13.7.4",
     "commitlint": "^17.0.2",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.5.0",
@@ -65,6 +68,7 @@
     "react-native": "0.68.2",
     "react-native-builder-bob": "^0.18.3",
     "release-it": "^15.0.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.5.2"
   },
   "resolutions": {
@@ -147,5 +151,33 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@pabloadoue/find-value": "^1.0.2",
+    "@react-navigation/drawer": "^6.4.3",
+    "@react-navigation/native": "^6.0.11",
+    "@react-navigation/native-stack": "^6.7.0",
+    "add": "^2.0.6",
+    "capitalize": "^2.0.4",
+    "color-harmony": "^0.3.0",
+    "deep-iterator": "^1.1.0",
+    "native-base": "^3.4.9",
+    "numeral": "^2.0.6",
+    "object-deep-iteration": "^1.0.0",
+    "react-dom": "17.0.2",
+    "react-native": "*",
+    "react-native-gesture-handler": "^2.5.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-reanimated": "^2.9.1",
+    "react-native-safe-area-context": "^4.3.1",
+    "react-native-screens": "^3.15.0",
+    "react-native-svg": "^12.4.0",
+    "react-native-uuid": "^2.0.1",
+    "react-native-web": "0.17.7",
+    "replaceall": "^0.1.6",
+    "setval": "^5.1.2",
+    "validator": "^13.7.0",
+    "xml-js": "^1.6.11",
+    "yarn": "^1.22.19"
   }
 }
